@@ -1,0 +1,20 @@
+@import '../../styles/colors.scss';
+
+.header {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  background-color: $blue-primary;
+  padding: .75rem 2rem;
+
+  &__title {
+    color: $orange-primary;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 400;
+  }
+
+  &__logo {
+    width: 175px;
+  }
+}
