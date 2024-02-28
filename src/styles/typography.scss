@@ -1,0 +1,16 @@
+$font-family-dm-sans: "DM Sans", sans-serif;
+
+.heading-1 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  font-family: $font-family-dm-sans;
+}
+
+.text-color-primary {
+  color: $white;
+}
+
+.text-color-secondary {
+  color: $blue-primary;
+}
