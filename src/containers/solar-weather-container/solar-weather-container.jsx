@@ -4,17 +4,26 @@ import { RQ_KEY } from '@constants/react-query';
 import { Header } from '@components/header/header';
 import { Button } from '@components/button/button';
 import { MapWrapper } from '@components/map-wrapper/map-wrapper';
+import { DateRangePicker } from '@components/date-range-picker/date-range-picker';
 import { useSolarSearch } from '@contexts/solar-search-context';
 import { openMeteoService } from '@services/open-meteo';
 
 import './solar-weather-container.scss';
+import { useMemo } from 'react';
 
 
 export function SolarWeatherContainer() {
-
   const { t } = useTranslation();
 
-  const { currentSolarViewport, setCurrentSolarViewPort } = useSolarSearch();
+  const { currentSolarViewport } = useSolarSearch();
+
+  const payload = useMemo(() => ({
+    latitude: currentSolarViewport.latitude.toFixed(2),
+    longitude: currentSolarViewport.longitude.toFixed(2),
+  }), [
+    currentSolarViewport.latitude,
+    currentSolarViewport.longitude
+  ]);
 
   const { 
     isLoading: isLoadingResults, 
@@ -22,7 +31,7 @@ export function SolarWeatherContainer() {
     refetch: refetchWeatherData
   } = useQuery(
     [ RQ_KEY.SOLAR_WEATHER, currentSolarViewport ],
-    () => openMeteoService.getWeatherData(),
+    () => openMeteoService.getWeatherData(payload),
     {
       enabled: false,
       refetchOnWindowFocus: false,
@@ -30,11 +39,8 @@ export function SolarWeatherContainer() {
   );
 
   function handleSubmit() {
-    setCurrentSolarViewPort(123)
     refetchWeatherData();
   }
-
-  console.log('weatherData :>> ', weatherData);
 
   return (
     <div className='solar-weather-container'>
@@ -43,19 +49,39 @@ export function SolarWeatherContainer() {
         <div className='heading-1 text-color-secondary'>
           {t('solar-weather.title')}
         </div>
+        <div className='solar-weather-container__description text-color-secondary'>
+          {t('solar-weather.description')}
+        </div>
       </div>
 
-      <MapWrapper />
-
-      <Button onClick={handleSubmit}>
-        {t('button.calculate')}
-      </Button>
-
-      {isLoadingResults && (
-        <div>
-          {t('loading')}
+      <div className='solar-weather-container__box'>
+        <div className='solar-weather-container__selection'>
+          <div className='solar-weather-container__column'>
+            <p className='solar-weather-container__label'>
+              {t('solar-weather.select-date')}
+            </p>
+            <DateRangePicker />
+          </div>
+          <div className='solar-weather-container__column'>
+            <p className='solar-weather-container__label'>
+              {t('solar-weather.select-location')}
+            </p>
+            <MapWrapper />
+          </div>
         </div>
-      )}
+
+        <Button onClick={handleSubmit}>
+          {t('button.calculate')}
+        </Button>
+      </div>
+
+      {
+        isLoadingResults && (
+          <div>
+            {t('loading')}
+          </div>
+        )
+      }
       
     </div>
 

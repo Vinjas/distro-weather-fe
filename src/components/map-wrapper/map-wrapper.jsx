@@ -33,7 +33,7 @@ export function MapWrapper() {
           ref={mapRef}
           {...currentSolarViewport}
           width="100%"
-          height="200px"
+          height="347px"
           onViewportChange={handleViewportChange}
           mapStyle="mapbox://styles/mapbox/streets-v9"
           mapboxAccessToken={mapBoxToken}
