@@ -1,15 +1,40 @@
 import { useTranslation } from 'react-i18next';
+import { useQuery } from 'react-query';
+import { RQ_KEY } from '@constants/react-query';
 import { Header } from '@components/header/header';
-import './solar-weather-container.scss';
 import { Button } from '@components/button/button';
+import { MapWrapper } from '@components/map-wrapper/map-wrapper';
+import { useSolarSearch } from '@contexts/solar-search-context';
+import { openMeteoService } from '@services/open-meteo';
+
+import './solar-weather-container.scss';
+
 
 export function SolarWeatherContainer() {
 
   const { t } = useTranslation();
-  
-  function handleTestClick() {
-    alert('Test button clicked');
+
+  const { currentSolarViewport, setCurrentSolarViewPort } = useSolarSearch();
+
+  const { 
+    isLoading: isLoadingResults, 
+    data: weatherData,
+    refetch: refetchWeatherData
+  } = useQuery(
+    [ RQ_KEY.SOLAR_WEATHER, currentSolarViewport ],
+    () => openMeteoService.getWeatherData(),
+    {
+      enabled: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  function handleSubmit() {
+    setCurrentSolarViewPort(123)
+    refetchWeatherData();
   }
+
+  console.log('weatherData :>> ', weatherData);
 
   return (
     <div className='solar-weather-container'>
@@ -20,9 +45,17 @@ export function SolarWeatherContainer() {
         </div>
       </div>
 
-      <Button onClick={handleTestClick}>
+      <MapWrapper />
+
+      <Button onClick={handleSubmit}>
         {t('button.calculate')}
       </Button>
+
+      {isLoadingResults && (
+        <div>
+          {t('loading')}
+        </div>
+      )}
       
     </div>
 
