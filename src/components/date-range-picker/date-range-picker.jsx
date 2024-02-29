@@ -2,9 +2,13 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { useState } from 'react';
 import { DateRangePicker as ReactDateRange } from 'react-date-range';
+import { useSolarSearch } from '@contexts/solar-search-context';
+import { dateConvertToISO } from '@utils/date';
 import './date-range-picker.scss';
 
 export function DateRangePicker() {
+  const { setCurrentStartDate, setCurrentEndDate } = useSolarSearch();
+
   const [selectedRange, setSelectedRange] = useState([
     {
       startDate: new Date(),
@@ -16,7 +20,8 @@ export function DateRangePicker() {
 
   function handleSelect(ranges) {
     setSelectedRange([ranges.selection]);
-    console.log('ranges :>> ', ranges);
+    setCurrentStartDate(dateConvertToISO(ranges.selection.startDate));
+    setCurrentEndDate(dateConvertToISO(ranges.selection.endDate));
   }
 
   return (

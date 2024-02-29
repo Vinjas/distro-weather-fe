@@ -1,21 +1,30 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useMemo, useState } from 'react';
+import { dateConvertToISO } from '@utils/date';
 
 export const SolarSearchContext = createContext();
 
 export function SolarSearchProvider(props) {
   const [currentSolarViewport, setCurrentSolarViewPort] = useState({
-    latitude: 51.92444,
-    longitude: 4.47775,
+    latitude: 51.92,
+    longitude: 4.47,
     zoom: 10,
     transitionDuration: 500,
   });
-  
+  const [currentStartDate, setCurrentStartDate] = useState(dateConvertToISO(new Date()));
+  const [currentEndDate, setCurrentEndDate] = useState(dateConvertToISO(new Date()));
+
   const api = useMemo(() => ({
     currentSolarViewport,
-    setCurrentSolarViewPort
+    setCurrentSolarViewPort,
+    currentStartDate,
+    setCurrentStartDate,
+    currentEndDate,
+    setCurrentEndDate
   }), [
-    currentSolarViewport
+    currentSolarViewport,
+    currentStartDate,
+    currentEndDate
   ]);
 
   return <SolarSearchContext.Provider value={ api } { ...props } />;

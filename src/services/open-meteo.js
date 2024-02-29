@@ -20,8 +20,6 @@ export class OpenMeteoService extends Request {
       .replace(':startDate', startDate)
       .replace(':endDate', endDate);
 
-    console.log('url :>> ', url);
-
     return this.http
       .get(url)
       .then(({ data }) => data || {});

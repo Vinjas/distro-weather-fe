@@ -15,14 +15,18 @@ import { useMemo } from 'react';
 export function SolarWeatherContainer() {
   const { t } = useTranslation();
 
-  const { currentSolarViewport } = useSolarSearch();
+  const { currentSolarViewport, currentStartDate, currentEndDate } = useSolarSearch();
 
   const payload = useMemo(() => ({
     latitude: currentSolarViewport.latitude.toFixed(2),
     longitude: currentSolarViewport.longitude.toFixed(2),
+    startDate: currentStartDate,
+    endDate: currentEndDate
   }), [
     currentSolarViewport.latitude,
-    currentSolarViewport.longitude
+    currentSolarViewport.longitude,
+    currentStartDate,
+    currentEndDate
   ]);
 
   const { 
