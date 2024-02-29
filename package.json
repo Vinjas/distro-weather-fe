@@ -23,6 +23,7 @@
     "react-date-range": "^2.0.0-alpha.4",
     "react-dom": "18.2.0",
     "react-i18next": "14.0.5",
+    "react-loader-spinner": "^6.1.6",
     "react-map-gl": "^6.1.21",
     "react-map-gl-geocoder": "^2.2.0",
     "react-query": "3.39.1"

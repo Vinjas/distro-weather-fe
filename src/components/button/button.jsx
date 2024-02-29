@@ -11,6 +11,7 @@ export function Button({ children, primary, secondary, disabled, onClick }) {
   
   return (
     <button className={_className} 
+      type="button"
         onClick={onClick}
         disabled={disabled}>
       {children}

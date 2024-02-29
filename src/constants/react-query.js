@@ -1,12 +1,12 @@
 export const RQ_CONFIG = {
   defaultOptions: {
     queries: {
-      retry: 0,
-      staleTime: 1000,
-      cacheTime: 1000,
-      refetchOnWindowFocus: false,
-      refetchInterval: false,
-      refetchOnMount: true
+      retry: 3,
+      retryDelay: 1000, // 1 second
+      staleTime: 60000, // 1 minute
+      cacheTime: 600000, // 10 minutes
+      refetchInterval: false, // no interval refetching by default
+      refetchOnWindowFocus: false
     }
   }
 };

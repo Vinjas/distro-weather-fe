@@ -8,12 +8,18 @@
   font-weight: 600;
   cursor: pointer;
 
-  &__primary {
+  &__primary:not(:disabled) {
     background-color: $orange-primary;
     color: $blue-primary;
 
     &:hover {
       background-color: $orange-hover;
     }
+  }
+
+  &__disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    background-color: $blue-primary;
   }
 }

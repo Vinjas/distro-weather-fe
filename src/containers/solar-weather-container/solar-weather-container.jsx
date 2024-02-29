@@ -10,6 +10,7 @@ import { openMeteoService } from '@services/open-meteo';
 
 import './solar-weather-container.scss';
 import { useMemo } from 'react';
+import { Loader } from '../../components/loader/loader';
 
 
 export function SolarWeatherContainer() {
@@ -30,11 +31,12 @@ export function SolarWeatherContainer() {
   ]);
 
   const { 
-    isLoading: isLoadingResults, 
+    isFetching,
+    isLoading,
     data: weatherData,
     refetch: refetchWeatherData
   } = useQuery(
-    [ RQ_KEY.SOLAR_WEATHER, currentSolarViewport ],
+    [ RQ_KEY.SOLAR_WEATHER, currentSolarViewport, currentStartDate, currentEndDate],
     () => openMeteoService.getWeatherData(payload),
     {
       enabled: false,
@@ -74,19 +76,14 @@ export function SolarWeatherContainer() {
           </div>
         </div>
 
-        <Button onClick={handleSubmit}>
-          {t('button.calculate')}
-        </Button>
+        
+          <Button onClick={handleSubmit} disabled={isFetching || isLoading}>
+              {!isFetching && !isLoading && t('button.calculate')}
+              {(isFetching || isLoading) && (
+                <Loader />
+              )}
+          </Button>
       </div>
-
-      {
-        isLoadingResults && (
-          <div>
-            {t('loading')}
-          </div>
-        )
-      }
-      
     </div>
 
   )
