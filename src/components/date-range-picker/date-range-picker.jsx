@@ -31,6 +31,7 @@ export function DateRangePicker() {
     <div className='date-range-picker'>
     <ReactDateRange
         maxDate={new Date()}
+        minDate={new Date('2023-10-01')}
         fixedHeight
         staticRanges={customRanges}
         inputRanges={customInputRanges}

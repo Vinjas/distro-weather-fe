@@ -1,6 +1,6 @@
 # Distro Weather Tool for Solar Energy Planning 
 
-**Analyze the viability of Solar panels installation based on +70 years of weather historic data**
+**Analyze the viability of Solar panels installation based on years of weather historic data**
 
 Introducing Distro Energy's cutting-edge Solar Radiation Calculator, a powerful tool designed to accurately forecast and manage solar radiation levels (Shortwave Solar Radiation GHI, Diffuse Solar Radiation DHI and Shortwave Radiation Sum) for any selected location and date range.
 

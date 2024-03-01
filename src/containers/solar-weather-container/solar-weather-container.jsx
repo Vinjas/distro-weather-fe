@@ -47,6 +47,10 @@ export function SolarWeatherContainer() {
       setSolarHourlyWeatherData(solarHourlyWeatherDataQuery);
       setSolarSumWeatherData(solarSumWeatherData);
 
+      setTimeout(function () {
+        chartRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 2);
+
       setRequestError(null);
     } catch (error) {
       console.error('Error requesting data:', error);
@@ -55,10 +59,6 @@ export function SolarWeatherContainer() {
     }
 
     setIsFetching(false);
-
-    setTimeout(function () {
-      chartRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }, 2);
   }
 
   return (
@@ -105,11 +105,13 @@ export function SolarWeatherContainer() {
           </Button>
       </div>
 
-      {requestError && (
-        <div className='solar-weather-container__error'>
-          {requestError}
-        </div>
-      )}
+      {
+        requestError && (
+          <div className='solar-weather-container__error'>
+            {requestError}
+          </div>
+        )
+      }
     </div>
 
   )
