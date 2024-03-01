@@ -7,7 +7,7 @@ Introducing Distro Energy's cutting-edge Solar Radiation Calculator, a powerful 
 ## Deployed APP
 Currently deployed at:
 
-https://distro-weather-82qpq0msk-daniel-vinyas-projects.vercel.app/
+https://distro-weather-3ku7mel74-daniel-vinyas-projects.vercel.app/
 
 ### Screenshots
 <img src="./screenshots/Screenshot%202024-03-01%20at%2007.15.21.png" alt="drawing" width="500"/>
