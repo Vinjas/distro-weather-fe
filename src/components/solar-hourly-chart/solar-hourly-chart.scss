@@ -1,3 +1,9 @@
+@import '../../styles/colors.scss';
+
 .solar-hourly-chart {
+  padding-top: 1rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: $pure-white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .02), 0 1px 6px rgba(0, 0, 0, .02), 0 1px 2px rgba(0, 0, 0, .03);
 }

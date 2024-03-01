@@ -1,3 +1,9 @@
+@import '../../styles/colors.scss';
+
 .solar-sum-chart {
+  padding-bottom: 1rem;
+  background-color: $pure-white;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .02), 0 1px 6px rgba(0, 0, 0, .02), 0 1px 2px rgba(0, 0, 0, .03);
 }

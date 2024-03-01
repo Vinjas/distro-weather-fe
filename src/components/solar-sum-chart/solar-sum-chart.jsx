@@ -25,7 +25,7 @@ export function SolarSumChart({ weatherData }) {
       backgroundColor: 'white',
     },
     title: {
-      text: t('chart.solar.title'),
+      text: t('chart.solar.title.sum'),
       style: {
         color: '#15325B'
       }
@@ -37,7 +37,7 @@ export function SolarSumChart({ weatherData }) {
       }),
       labels: {
         style: {
-          whiteSpace: 'nowrap' // Evitar que se ajusten las etiquetas del eje x
+          whiteSpace: 'nowrap'
         }
       }
     },

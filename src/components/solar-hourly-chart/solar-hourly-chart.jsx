@@ -36,17 +36,13 @@ export function SolarHourlyChart({ weatherData }) {
       backgroundColor: 'white',
     },
     title: {
-      text: t('chart.solar.title'),
+      text: t('chart.solar.title.hourly'),
       style: {
         color: '#15325B'
       }
     },
-    /* xAxis: {
-      categories: diffuseRadiation.map((point, index) => (index % 4 === 0 ? point.name : ''))
-    }, */
     xAxis: {
       categories: diffuseRadiation.map((point) => {
-        // Dividir la fecha y la hora y limitar la longitud de la fecha si es demasiado larga
         const datetime = new Date(point.name);
         const date = datetime.toLocaleDateString();
         const hour = datetime.toLocaleTimeString();

@@ -1,7 +1,7 @@
 export default {
   translation: {
     'header': {
-      'title': 'Weather Tool for Energy Planning'
+      'title': 'Weather Tool for Solar Energy Planning'
     },
     'solar-weather': {
       'title': 'Analyze the viability of Solar panels installation based on +70 years of weather historic data',
@@ -17,7 +17,10 @@ export default {
     },
     'chart': {
       'solar': {
-        'title': 'Solar hourly Radiation levels GHI and DHI',
+        'title': {
+          'hourly': 'Shortwave Solar Radiation (GHI) and Diffuse Solar Radiation (DHI) hourly',
+          'sum': 'Shortwave Radiation Sum'
+        },
         'solar-ghi': 'Shortwave Solar Radiation GHI',
         'solar-dhi': 'Diffuse Solar Radiation DHI',
         'solar-sum': 'Shortwave Radiation Sum'
