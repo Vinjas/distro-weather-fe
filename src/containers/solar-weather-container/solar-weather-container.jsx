@@ -1,22 +1,27 @@
+import { useState, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
-import { RQ_KEY } from '@constants/react-query';
 import { Header } from '@components/header/header';
 import { Button } from '@components/button/button';
 import { MapWrapper } from '@components/map-wrapper/map-wrapper';
 import { DateRangePicker } from '@components/date-range-picker/date-range-picker';
+import { SolarHourlyChart } from '@components/solar-hourly-chart/solar-hourly-chart';
+import { SolarSumChart } from '@components/solar-sum-chart/solar-sum-chart';
 import { useSolarSearch } from '@contexts/solar-search-context';
 import { openMeteoService } from '@services/open-meteo';
-
+import { Loader } from '@components/loader/loader';
 import './solar-weather-container.scss';
-import { useMemo } from 'react';
-import { Loader } from '../../components/loader/loader';
 
 
 export function SolarWeatherContainer() {
   const { t } = useTranslation();
 
+  const chartRef = useRef(null);
   const { currentSolarViewport, currentStartDate, currentEndDate } = useSolarSearch();
+
+  const [solarHourlyWeatherData, setSolarHourlyWeatherData] = useState(null);
+  const [solarSumWeatherData, setSolarSumWeatherData] = useState(null);
+  const [requestError, setRequestError] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const payload = useMemo(() => ({
     latitude: currentSolarViewport.latitude.toFixed(2),
@@ -30,22 +35,30 @@ export function SolarWeatherContainer() {
     currentEndDate
   ]);
 
-  const { 
-    isFetching,
-    isLoading,
-    data: weatherData,
-    refetch: refetchWeatherData
-  } = useQuery(
-    [ RQ_KEY.SOLAR_WEATHER, currentSolarViewport, currentStartDate, currentEndDate],
-    () => openMeteoService.getWeatherData(payload),
-    {
-      enabled: false,
-      refetchOnWindowFocus: false,
-    }
-  );
+  async function handleSubmit() {
+    setIsFetching(true);
 
-  function handleSubmit() {
-    refetchWeatherData();
+    try {
+      const [solarHourlyWeatherDataQuery, solarSumWeatherData] = await Promise.all([
+        openMeteoService.getSolarRadiationHourlyData(payload),
+        openMeteoService.getSolarRadiationSumData(payload)
+      ]);
+    
+      setSolarHourlyWeatherData(solarHourlyWeatherDataQuery);
+      setSolarSumWeatherData(solarSumWeatherData);
+
+      setRequestError(null);
+    } catch (error) {
+      console.error('Error requesting data:', error);
+
+      setRequestError(t('messages.error'));
+    }
+
+    setIsFetching(false);
+
+    setTimeout(function () {
+      chartRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 2);
   }
 
   return (
@@ -60,6 +73,15 @@ export function SolarWeatherContainer() {
         </div>
       </div>
 
+      {
+        (solarSumWeatherData && solarSumWeatherData) && (
+          <div ref={chartRef} className='solar-weather-container__chart-wrapper'>
+            <SolarHourlyChart weatherData={solarHourlyWeatherData} />
+            <SolarSumChart weatherData={solarSumWeatherData} />
+          </div>
+        )  
+      }
+      
       <div className='solar-weather-container__box'>
         <div className='solar-weather-container__selection'>
           <div className='solar-weather-container__column'>
@@ -77,13 +99,17 @@ export function SolarWeatherContainer() {
         </div>
 
         
-          <Button onClick={handleSubmit} disabled={isFetching || isLoading}>
-              {!isFetching && !isLoading && t('button.calculate')}
-              {(isFetching || isLoading) && (
-                <Loader />
-              )}
+          <Button onClick={handleSubmit} disabled={isFetching}>
+              {!isFetching && t('button.calculate')}
+              {(isFetching) && <Loader />}
           </Button>
       </div>
+
+      {requestError && (
+        <div className='solar-weather-container__error'>
+          {requestError}
+        </div>
+      )}
     </div>
 
   )

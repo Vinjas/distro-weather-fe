@@ -2,6 +2,8 @@
 @import '../../styles/mixin.scss';
 
 .solar-weather-container {
+  padding-bottom: 1.5rem;
+
   &__content {
       margin: 3rem 4rem;
 
@@ -61,5 +63,23 @@
       flex-direction: row;
       align-items: flex-start;
     }
+  }
+
+  &__chart-wrapper {
+    margin: 3rem 4rem;
+    
+    @include media(desktop-bigger) {
+      margin: 3rem 8rem;
+    }
+
+    @include media(phone) {
+      margin: 2rem 1rem;
+    }
+  }
+
+  &__error {
+    color: $error;
+    font-weight: 700;
+    text-align: center;
   }
 }

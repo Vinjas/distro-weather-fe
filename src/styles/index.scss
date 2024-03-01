@@ -9,6 +9,13 @@
   box-sizing: inherit;
 }
 
+html { 
+  height: 100%; overflow: auto; 
+}
+body { 
+  height: 100%; 
+}
+
 :root {
   font-family: $font-family-dm-sans;
   color: $blue-primary;

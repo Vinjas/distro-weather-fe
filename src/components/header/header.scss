@@ -3,20 +3,20 @@
 
 .header {
   display: flex;
+  justify-content: space-between;
   gap: 3rem;
   align-items: center;
   background-color: $blue-primary;
-  padding: .75rem 2rem;
+  padding: .75rem 4.5rem;
 
   @include media(tablet) {
     gap: 1rem;
   }
 
   &__title {
-    color: $orange-primary;
-    font-style: italic;
-    font-size: 32px;
-    font-weight: 400;
+    color: $pure-white;
+    font-size: 24px;
+    font-weight: 700;
 
     @include media(tablet) {
       font-size: 24px;
@@ -28,7 +28,7 @@
   }
 
   &__logo {
-    width: 175px;
+    width: 147px;
 
     @include media(tablet) {
       width: 120px;
