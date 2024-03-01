@@ -27,6 +27,11 @@ Currently, two official plugins are available:
 - To run the project locally in your `localhost` you must execute the following command in your terminal, while your are located in the root folder: `npm run start`
 - Vite will start the project locally by default in `http://localhost:5173/`. Navigate there through your browser and you should be able to see the APP running
 
+## Unit testing
+Some unit test have been added using Jest + React Testing Library.
+
+To execute the test just run `npm run test` in the root project folder.
+
 ## Open-Meteo API
 To get all the weather data, specifically the solar radiation historical data, the API used was Open-Meteo 
 
