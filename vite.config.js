@@ -24,4 +24,10 @@ export default defineConfig({
       "@services": `${__dirname}/src/services`,
     },
   },
+  define: { global: 'window' },
+  test: {
+    include: ['**/*.spec.js'],
+    globals: true,
+    environment: 'jsdom',
+  },
 })
